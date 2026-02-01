@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoolUp - Pool Together, Save Together</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!--on Opening Website-->
+    <div id="landing-page" class="page active">
+        <nav class="navbar landing-navbar">
+            <div class="logo logo-center">
+                <i class="fas fa-coins"></i> PoolUp
+            </div>
+        </nav>
+
+        <div class="hero">
+            <h1>Pool Together, <span class="highlight">Save Together</span></h1>
+            <p>Can't afford that big discount alone? Find others who want the same deal and pool your money together!</p>
+            <button class="btn btn-primary btn-large" onclick="enterApp()">
+                <i class="fas fa-rocket"></i> Get Started
+            </button>
+        </div>
+
+        <div class="features">
+            <h2>How It Works</h2>
+            <div class="feature-cards">
+                <div class="card">
+                    <i class="fas fa-search"></i>
+                    <h3>1. Find Pools</h3>
+                    <p>Browse existing pools or create your own for any offer</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>2. Join & Pay 10%</h3>
+                    <p>Pay a small deposit to show you're serious</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-piggy-bank"></i>
+                    <h3>3. Save Money</h3>
+                    <p>When the pool fills up, everyone gets the discount!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--DASHBOARD (CATEGORY SELECTION)-->
+    <div id="dashboard-page" class="page">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-coins"></i> PoolUp
+            </div>
+            <div class="user-info">
+                <span id="user-name-display">Guest User</span>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <h1>Welcome to <span class="highlight">PoolUp!</span></h1>
+            <p>Choose a category to start pooling</p>
+
+            <div class="wallet-display">
+                <i class="fas fa-wallet"></i>
+                <span>Wallet: ₹<span id="wallet-amount">5000</span></span>
+            </div>
+
+            <h2>Categories</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="selectCategory('shopping')">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Shopping</h3>
+                    <p>Flipkart, Amazon, Myntra deals</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('travel')">
+                    <i class="fas fa-car"></i>
+                    <h3>Travel</h3>
+                    <p>Share cab rides & save</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('food')">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Food</h3>
+                    <p>Group orders & dining</p>
+                </div>
+                <div class="category-card" onclick="selectCategory('electronics')">
+                    <i class="fas fa-laptop"></i>
+                    <h3>Electronics</h3>
+                    <p>Gadgets & tech deals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--CATEGORY OPTIONS (3 choices) -->
+    <div id="category-page" class="page">
+        <nav class="navbar">
+            <button class="btn btn-outline btn-small" onclick="showPage('dashboard-page')">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="logo" id="category-title">Shopping</div>
+            <div></div>
+        </nav>
+
+        <div class="options-content">
+            <h2 id="category-heading">What would you like to do?</h2>
+            
+            <div class="options-grid">
+                <!-- Option 1: Create New Pool -->
+                <div class="option-card" onclick="showCreatePoolPage()">
+                    <i class="fas fa-plus-circle"></i>
+                    <h3>Create New Pool</h3>
+                    <p>Start a new pool and invite others to join</p>
+                </div>
+
+                <!-- Option 2: Browse Existing Pools -->
+                <div class="option-card" onclick="showBrowsePoolsPage()">
+                    <i class="fas fa-search"></i>
+                    <h3>Browse Pools</h3>
+                    <p>Find and join existing pools</p>
+                </div>
+
+                <!-- Option 3: View Coupons -->
+                <div class="option-card" onclick="showCouponsPage()">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>View Coupons</h3>
+                    <p>See available offers and discounts</p>
+                </div>
+            </div>
+
+            <!-- Travel specific info (shown only for travel category) -->
+            <div id="travel-info-box" class="info-box hidden">
+                <i class="fas fa-info-circle"></i>
+                <p>For travel, you can share rides with people going to the same destination!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CREATE NEW POOL -->
+    <div id="create-pool-page" class="page">
+        <nav class="navbar">
+            <button class="btn btn-outline btn-small" onclick="goBackFromCreate()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="logo">Create Pool</div>
+            <div></div>
+        </nav>
+
+        <div class="form-container">
+            <div class="form-box">
+                <h2><i class="fas fa-plus"></i> Create New Pool</h2>
+                
+                <div class="form-group">
+                    <label>Pool Name</label>
+                    <input type="text" id="pool-name" placeholder="e.g., Flipkart Sale Pool">
+                </div>
+
+                <div class="form-group">
+                    <label>Store/Brand Name</label>
+                    <input type="text" id="store-name" placeholder="e.g., Flipkart">
+                </div>
+
+                <div class="form-group">
+                    <label>Offer Description</label>
+                    <textarea id="pool-description" placeholder="Describe the offer... e.g., 20% off on orders above ₹10000"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Target Amount (₹)</label>
+                        <input type="number" id="target-amount" placeholder="10000">
+                    </div>
+                    <div class="form-group">
+                        <label>Your Contribution (₹)</label>
+                        <input type="number" id="your-contribution" placeholder="2000">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Max Members</label>
+                        <select id="max-members">
+                            <option value="3">3 Members</option>
+                            <option value="5" selected>5 Members</option>
+                            <option value="10">10 Members</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Deadline</label>
+                        <input type="date" id="deadline">
+                    </div>
+                </div>
+
+                <!-- Travel specific fields -->
+                <div id="travel-fields" class="hidden">
+                    <div class="form-group">
+                        <label>Pickup Location</label>
+                        <input type="text" id="pickup-location" placeholder="Starting point">
+                    </div>
+                    <div class="form-group">
+                        <label>Drop Location</label>
+                        <input type="text" id="drop-location" placeholder="Destination">
+                    </div>
+                </div>
+
+                <!-- Deposit Info -->
+                <div class="deposit-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>10% deposit (₹<span id="deposit-preview">0</span>) will be deducted from your wallet</span>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="createPool()">
+                    <i class="fas fa-check"></i> Create Pool
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--BROWSE POOLS  -->
+    <div id="browse-pools-page" class="page">
+        <nav class="navbar">
+            <button class="btn btn-outline btn-small" onclick="goBackFromBrowse()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="logo">Browse Pools</div>
+            <div></div>
+        </nav>
+
+        <div class="browse-content">
+            <!-- Search and Filter -->
+            <div class="search-filter">
+                <input type="text" id="search-input" placeholder="Search pools..." oninput="searchPools()">
+                <select id="sort-select" onchange="searchPools()">
+                    <option value="deadline">Sort by Deadline</option>
+                    <option value="progress">Sort by Progress</option>
+                    <option value="amount">Sort by Amount</option>
+                </select>
+            </div>
+
+            <!-- Pool List -->
+            <div id="pools-list" class="pools-list">
+                <!-- Pools will be added here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!--POOL DETAILS-->
+    <div id="pool-details-page" class="page">
+        <nav class="navbar">
+            <button class="btn btn-outline btn-small" onclick="showPage('browse-pools-page')">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="logo">Pool Details</div>
+            <div></div>
+        </nav>
+
+        <div class="details-content">
+            <div class="details-card">
+                <div class="pool-header-detail">
+                    <span class="store-tag" id="detail-store">Store</span>
+                    <span class="category-tag" id="detail-category">Category</span>
+                </div>
+                
+                <h2 id="detail-name">Pool Name</h2>
+                <p id="detail-description">Description</p>
+
+                <!-- Progress Bar -->
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="detail-progress"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span>₹<span id="detail-current">0</span> / ₹<span id="detail-target">0</span></span>
+                        <span id="detail-percent">0%</span>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="countdown-box">
+                    <h4><i class="fas fa-clock"></i> Time Left</h4>
+                    <div class="countdown" id="countdown-timer">
+                        <div class="time-unit">
+                            <span id="days">00</span>
+                            <small>Days</small>
+                        </div>
+                        <div class="time-unit">
+                            <span id="hours">00</span>
+                            <small>Hours</small>
+                        </div>
+                        <div class="time-unit">
+                            <span id="minutes">00</span>
+                            <small>Mins</small>
+                        </div>
+                        <div class="time-unit">
+                            <span id="seconds">00</span>
+                            <small>Secs</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Travel Route (shown only for travel pools) -->
+                <div id="route-info" class="route-info hidden">
+                    <h4><i class="fas fa-route"></i> Route</h4>
+                    <div class="route-display">
+                        <span id="detail-pickup">Pickup</span>
+                        <i class="fas fa-arrow-right"></i>
+                        <span id="detail-drop">Drop</span>
+                    </div>
+                </div>
+
+                <!-- Members List -->
+                <div class="members-section">
+                    <h4><i class="fas fa-users"></i> Members (<span id="member-count">0</span>/<span id="max-count">0</span>)</h4>
+                    <div id="members-list" class="members-list">
+                        <!-- Members added by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Join Section -->
+                <div id="join-section" class="join-section">
+                    <div class="form-group">
+                        <label>Your Contribution (₹)</label>
+                        <input type="number" id="join-amount" placeholder="Enter amount">
+                    </div>
+                    <div class="deposit-info">
+                        <span>10% Deposit: ₹<span id="join-deposit">0</span></span>
+                    </div>
+                    <button class="btn btn-primary btn-full" onclick="joinPool()">
+                        <i class="fas fa-hand-holding-usd"></i> Join Pool
+                    </button>
+                </div>
+
+                <!-- Already Joined Message -->
+                <div id="already-joined" class="already-joined hidden">
+                    <i class="fas fa-check-circle"></i>
+                    <p>You're already in this pool!</p>
+                    <button class="btn btn-outline btn-full" onclick="leavePool()">Leave Pool</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--COUPONS-->
+    <div id="coupons-page" class="page">
+        <nav class="navbar">
+            <button class="btn btn-outline btn-small" onclick="goBackFromCoupons()">
+                <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <div class="logo">Coupons</div>
+            <div></div>
+        </nav>
+
+        <div class="coupons-content">
+            <h2>Available Coupons</h2>
+            <div id="coupons-list" class="coupons-list">
+                <!-- Coupons added by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!--SUCCESS POPUP -->
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <i class="fas fa-check-circle"></i>
+            <h3 id="popup-title">Success!</h3>
+            <p id="popup-message">Operation completed successfully.</p>
+            <button class="btn btn-primary" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <!--TOAST NOTIFICATION -->
+    <div id="toast" class="toast">
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <script src="web.js"></script>
+</body>
+</html>
